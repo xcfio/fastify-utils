@@ -1,7 +1,7 @@
 {
     "name": "fastify-utils",
-    "version": "0.0.0",
-    "description": "fastify-utils",
+    "version": "0.0.1",
+    "description": "A collection of TypeScript utilities for building Fastify applications — error handling, schema validation formatting, and object serialization.",
     "author": "xcfio",
     "homepage": "https://github.com/xcfio/fastify-utils#readme",
     "type": "commonjs",
