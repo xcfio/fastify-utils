@@ -20,7 +20,7 @@ jobs:
             - name: Setup PNPM
               uses: pnpm/action-setup@v4
 
-              # Setup Node.js
+            # Setup Node.js
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
@@ -30,10 +30,6 @@ jobs:
             # Install dependencies
             - name: Install dependencies
               run: pnpm install --no-frozen-lockfile
-
-            # Install tsx
-            - name: Install dependencies
-              run: pnpm install --save-dev tsx
 
             # Run test
             - name: Run test

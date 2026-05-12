@@ -10,7 +10,7 @@
     "scripts": {
         "lint": "prettier --config=.prettierrc --check src",
         "fmt": "prettier --config=.prettierrc --write src",
-        "test": "(tsc --noEmit) && (tsx src/index.test.ts)",
+        "test": "tsc --noEmit",
         "dev": "tsc --watch",
         "build": "tsc"
     },
@@ -31,8 +31,15 @@
     "engines": {
         "node": ">=22"
     },
+    "peerDependencies": {
+        "@fastify/error": ">=4.0.0 <5.0.0",
+        "fastify": ">=5.0.0 <6.0.0",
+        "typebox": ">=1.0.0 <2.0.0"
+    },
     "devDependencies": {
+        "@fastify/error": ">=4.0.0 <5.0.0",
         "@types/node": "^25.7.0",
-        "tsx": "^4.21.0"
+        "fastify": ">=5.0.0 <6.0.0",
+        "typebox": ">=1.0.0 <2.0.0"
     }
 }

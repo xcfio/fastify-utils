@@ -27,9 +27,6 @@ jobs:
             - name: Install dependencies
               run: pnpm install --no-frozen-lockfile
 
-            - name: Install tsx
-              run: pnpm install --save-dev tsx
-
             - name: Test
               run: node --run test
 
@@ -37,7 +34,4 @@ jobs:
               run: node --run build
 
             - name: Publish release
-              if: github.event_name == 'release'
               run: pnpm publish --provenance --access public --no-git-checks
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NODETOKEN}}
