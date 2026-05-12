@@ -1,0 +1,37 @@
+{
+    "name": "fastify-utils",
+    "version": "0.0.0",
+    "description": "fastify-utils",
+    "author": "xcfio",
+    "homepage": "https://github.com/xcfio/fastify-utils#readme",
+    "type": "commonjs",
+    "license": "MIT",
+    "main": "./out/index.js",
+    "scripts": {
+        "lint": "prettier --config=.prettierrc --check src",
+        "fmt": "prettier --config=.prettierrc --write src",
+        "test": "(tsc --noEmit) && (tsx src/index.test.ts)",
+        "dev": "tsc --watch",
+        "build": "tsc"
+    },
+    "keywords": [],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/xcfio/fastify-utils"
+    },
+    "bugs": {
+        "url": "https://github.com/xcfio/fastify-utils/issues",
+        "email": "omarfaruksxp@gmail.com"
+    },
+    "packageManager": "pnpm@11.1.1",
+    "publishConfig": {
+        "access": "public",
+        "tag": "latest"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "devDependencies": {
+        "@types/node": "^25.7.0"
+    }
+}
