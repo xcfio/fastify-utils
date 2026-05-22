@@ -1,25 +1,14 @@
 import { SchemaErrorFormatter } from "fastify/types/schema"
 import { CreateError } from "./create-error"
-import { Type, Static } from "typebox"
-
-/**
- * TypeBox schema defining the structure of a single validation error item.
- * Represents an individual schema validation failure, detailing the field path,
- * a human-readable message, the AJV keyword that failed, and optionally the received value.
- */
-export const ValidationErrorItem = Type.Object({
-    field: Type.String({ description: "Dot-notation field path (e.g. address.zip)" }),
-    message: Type.String({ description: "Human-readable error message" }),
-    keyword: Type.String({ description: "AJV keyword that triggered the error" }),
-    received: Type.Optional(Type.Unknown({ description: "The value that failed validation" }))
-})
+import { Type } from "typebox"
 
 /**
  * TypeBox schema for a standard HTTP 400 Bad Request response caused by schema validation failure.
- * This schema enforces a consistent error payload structure, which includes:
+ * Enforces a consistent error payload structure containing:
  * - A specific error `code` (`SCHEMA_VALIDATION_ERROR`)
- * - A general summary `message`
- * - An array of detailed `errors` matching {@link ValidationErrorItem}
+ * - A human-readable `message` with field-level detail
+ * - A numeric `statusCode` of `400`
+ * - A string `error` label (`"Bad Request"`)
  *
  * @example
  * ```typescript
@@ -35,16 +24,57 @@ export const ValidationErrorItem = Type.Object({
  */
 export const ValidationErrorResponse = Type.Object({
     code: Type.Literal("SCHEMA_VALIDATION_ERROR"),
-    message: Type.String({ examples: ["Validation failed for body"] }),
-    errors: Type.Array(ValidationErrorItem)
+    message: Type.String({ examples: ["Schema validation failed for body: email: must be string"] }),
+    statusCode: Type.Literal(400),
+    error: Type.String({ examples: ["Bad Request"] })
 })
+
+/**
+ * Represents a single schema validation error produced by AJV.
+ *
+ * @example
+ * ```typescript
+ * const err: SchemaValidationError = {
+ *   keyword: "type",
+ *   message: "must be string",
+ *   instancePath: "/email"
+ * }
+ * ```
+ */
+export interface SchemaValidationError {
+    instancePath?: string
+    keyword: string
+    message?: string
+    params?: {
+        allowedValue?: any
+        [key: string]: any
+    }
+}
+
+/**
+ * Maps instance paths (e.g. `/email`, `/address`) to their corresponding AJV validation errors.
+ * Used internally to group errors before formatting them into a single message string.
+ *
+ * @example
+ * ```typescript
+ * const byPath: ErrorsByPath = {
+ *   "/email": [{ keyword: "type", message: "must be string" }],
+ *   "/role":  [{ keyword: "const", params: { allowedValue: "admin" } }]
+ * }
+ * ```
+ */
+export interface ErrorsByPath {
+    [key: string]: SchemaValidationError[]
+}
 
 /**
  * Formats AJV schema validation errors into a structured, developer-friendly
  * error response using {@link CreateError}.
  *
  * Handles `const` keyword errors by aggregating allowed values into a
- * readable message. Strips `anyOf` wrapper errors to reduce noise.
+ * readable "must be one of: ..." message. Strips `anyOf` wrapper errors
+ * to reduce noise. Groups all remaining errors by field path and joins
+ * them into a single semicolon-separated message string.
  *
  * @param errors - AJV error objects from Fastify's schema validation.
  * @param dataVar - The data variable name (e.g. `body`, `querystring`).
@@ -59,11 +89,9 @@ export const ValidationErrorResponse = Type.Object({
  * // Response shape:
  * // {
  * //   "code": "SCHEMA_VALIDATION_ERROR",
- * //   "message": "Validation failed for body",
- * //   "errors": [
- * //     { "field": "email", "message": "must be string", "keyword": "type", "received": 123 },
- * //     { "field": "address.zip", "message": "must match pattern", "keyword": "pattern", "received": "abcd" }
- * //   ]
+ * //   "statusCode": 400,
+ * //   "error": "Bad Request",
+ * //   "message": "Schema validation failed for body: email: must be string; role must be one of: admin, user"
  * // }
  */
 export function ValidationErrorHandler(
@@ -71,62 +99,52 @@ export function ValidationErrorHandler(
     dataVar: Parameters<SchemaErrorFormatter>["1"]
 ) {
     const path = typeof dataVar === "string" ? dataVar : "unknown"
-    const ajvErrors = errors as unknown as AjvErrorObject[]
 
-    const errorItems: Array<Static<typeof ValidationErrorItem>> = []
-    const constErrorsByPath: Record<string, AjvErrorObject[]> = {}
+    const errorsByPath: ErrorsByPath = {}
 
-    for (const error of ajvErrors) {
-        if (error.keyword === "anyOf") continue
+    errors.forEach((error) => {
+        const instancePath = error.instancePath ?? "root"
+        if (!errorsByPath[instancePath]) {
+            errorsByPath[instancePath] = []
+        }
+        errorsByPath[instancePath].push(error)
+    })
 
-        const instancePath = error.instancePath ?? ""
-        const field = instancePath.replace(/^\//, "").replace(/\//g, ".") || "root"
+    const errorMessages: string[] = []
 
-        if (error.keyword === "const") {
-            if (!constErrorsByPath[field]) constErrorsByPath[field] = []
-            constErrorsByPath[field].push(error)
-            continue
+    Object.entries(errorsByPath).forEach(([instancePath, pathErrors]) => {
+        const constErrors = pathErrors.filter((e) => e.keyword === "const")
+        const otherErrors = pathErrors.filter((e) => e.keyword !== "const" && e.keyword !== "anyOf")
+
+        if (constErrors.length > 0) {
+            const allowedValues = constErrors.map((e) => e.params?.allowedValue).filter(Boolean)
+            if (allowedValues.length > 0) {
+                const fieldName = instancePath.replace(/^\//, "") || "root"
+                errorMessages.push(`${fieldName} must be one of: ${allowedValues.join(", ")}`)
+            } else {
+                errorMessages.push(
+                    ...constErrors.map(
+                        (e) => `${instancePath.replace(/^\//, "") || "root"}: ${e.message ?? "Invalid value"}`
+                    )
+                )
+            }
         }
 
-        errorItems.push({
-            field,
-            message: error.message ?? "Invalid value",
-            keyword: error.keyword,
-            received: error.data
-        })
-    }
+        if (otherErrors.length > 0) {
+            errorMessages.push(
+                ...otherErrors.map((e) => {
+                    const fieldName = instancePath.replace(/^\//, "") || "root"
+                    return `${fieldName}: ${e.message ?? "Invalid value"}`
+                })
+            )
+        }
 
-    for (const [field, constErrors] of Object.entries(constErrorsByPath)) {
-        const allowedValues = constErrors
-            .map((e) => e.params?.allowedValue)
-            .filter((v) => v !== undefined && v !== null)
-
-        errorItems.push({
-            field,
-            message:
-                allowedValues.length > 0
-                    ? `must be one of: ${allowedValues.join(", ")}`
-                    : (constErrors[0]?.message ?? "Invalid value"),
-            keyword: "const",
-            received: constErrors[0]?.data
-        })
-    }
-
-    return CreateError(400, "SCHEMA_VALIDATION_ERROR", `Validation failed for ${path}`, {
-        errors: errorItems
+        if (constErrors.length === 0 && otherErrors.length === 0) {
+            errorMessages.push(...pathErrors.map((e) => e.message ?? "Unknown error"))
+        }
     })
-}
 
-/**
- * Internal type representing an AJV validation error object.
- * Used to safely cast Fastify's generic schema error type in order to access
- * AJV-specific properties (e.g., `instancePath`, `params`, `schemaPath`).
- */
-type AjvErrorObject = {
-    instancePath: string
-    keyword: string
-    message?: string
-    params?: Record<string, unknown>
-    schemaPath: string
-    data?: unknown
+    const finalMessage = errorMessages.length > 0 ? errorMessages.join("; ") : "Validation failed"
+
+    return CreateError(400, "SCHEMA_VALIDATION_ERROR", `Schema validation failed for ${path}: ${finalMessage}`)
 }
