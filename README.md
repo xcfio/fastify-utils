@@ -4,12 +4,7 @@ A collection of TypeScript utilities for building Fastify applications — error
 
 ## Requirements
 
-| Dependency       | Version          |
-| ---------------- | ---------------- |
-| Node.js          | `>=22`           |
-| `fastify`        | `>=5.0.0 <6.0.0` |
-| `@fastify/error` | `>=4.0.0 <5.0.0` |
-| `typebox`        | `>=1.0.0 <2.0.0` |
+[Node.js](https://nodejs.org/) `>=22`. [pnpm](https://pnpm.io/) is recommended. [TypeScript](https://www.typescriptlang.org/) is optional but recommended for type safety.
 
 ## Installation
 
@@ -28,7 +23,10 @@ import { CreateError, ValidationErrorHandler, serialize } from "fastify-utils"
 throw CreateError(404, "USER_NOT_FOUND", "User not found", { userId: "123" })
 
 // Schema validation formatter
-fastify.setSchemaErrorFormatter(ValidationErrorHandler)
+const fastify = Fastify({
+    // ...other options
+    schemaErrorFormatter: ValidationErrorHandler
+})
 
 // Serialize DB records
 const row = { name: "Cool", createdAt: new Date() }
@@ -85,9 +83,18 @@ A `SchemaErrorFormatter` for Fastify that formats AJV validation errors into a s
 
 - Strips noisy `anyOf` wrapper errors
 - Aggregates `const` keyword errors into `must be one of: ...` messages
-- Converts `instancePath` (e.g. `/address/zip`) to dot-notation (e.g. `address.zip`)
+- Groups errors by field path, joined as a semicolon-separated message string
+
+Can be used via `setSchemaErrorFormatter` or directly in the Fastify constructor:
 
 ```typescript
+// Via constructor (recommended)
+const fastify = Fastify({
+    // ...other options
+    schemaErrorFormatter: ValidationErrorHandler
+})
+
+// Or via setter
 fastify.setSchemaErrorFormatter(ValidationErrorHandler)
 ```
 
@@ -96,25 +103,10 @@ fastify.setSchemaErrorFormatter(ValidationErrorHandler)
 ```json
 {
     "code": "SCHEMA_VALIDATION_ERROR",
-    "message": "Validation failed for body",
-    "errors": [
-        { "field": "email", "message": "must be string", "keyword": "type", "received": 123 },
-        { "field": "role", "message": "must be one of: admin, user", "keyword": "const", "received": "superadmin" },
-        { "field": "address.zip", "message": "must match pattern", "keyword": "pattern", "received": "abcd" }
-    ]
+    "statusCode": 400,
+    "error": "Bad Request",
+    "message": "Schema validation failed for body: email: must be string; role must be one of: admin, user"
 }
-```
-
----
-
-#### `ValidationErrorItem`
-
-TypeBox schema for a single validation error item.
-
-```typescript
-import { ValidationErrorItem } from "fastify-utils"
-
-// { field: string, message: string, keyword: string, received?: unknown }
 ```
 
 ---

@@ -1,6 +1,6 @@
 {
     "name": "fastify-utils",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A collection of TypeScript utilities for building Fastify applications — error handling, schema validation formatting, and object serialization.",
     "author": "xcfio",
     "homepage": "https://github.com/xcfio/fastify-utils#readme",
@@ -23,23 +23,20 @@
         "url": "https://github.com/xcfio/fastify-utils/issues",
         "email": "omarfaruksxp@gmail.com"
     },
-    "packageManager": "pnpm@11.1.1",
+    "dependencies": {
+        "@fastify/error": ">=4.0.0 <5.0.0",
+        "fastify": ">=5.0.0 <6.0.0",
+        "typebox": ">=1.0.0 <2.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^25.7.0"
+    },
+    "packageManager": "pnpm@11.2.2",
     "publishConfig": {
         "access": "public",
         "tag": "latest"
     },
     "engines": {
         "node": ">=22"
-    },
-    "peerDependencies": {
-        "@fastify/error": ">=4.0.0 <5.0.0",
-        "fastify": ">=5.0.0 <6.0.0",
-        "typebox": ">=1.0.0 <2.0.0"
-    },
-    "devDependencies": {
-        "@fastify/error": ">=4.0.0 <5.0.0",
-        "@types/node": "^25.7.0",
-        "fastify": ">=5.0.0 <6.0.0",
-        "typebox": ">=1.0.0 <2.0.0"
     }
 }

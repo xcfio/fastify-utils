@@ -23,10 +23,10 @@ import { Type } from "typebox"
  * ```
  */
 export const ValidationErrorResponse = Type.Object({
-    code: Type.Literal("SCHEMA_VALIDATION_ERROR"),
-    message: Type.String({ examples: ["Schema validation failed for body: email: must be string"] }),
     statusCode: Type.Literal(400),
-    error: Type.String({ examples: ["Bad Request"] })
+    code: Type.Literal("SCHEMA_VALIDATION_ERROR"),
+    error: Type.String({ examples: ["Bad Request"] }),
+    message: Type.String({ examples: ["Schema validation failed for body: email: must be string"] })
 })
 
 /**
@@ -82,7 +82,10 @@ export interface ErrorsByPath {
  *
  * @example
  * ```typescript
- * fastify.setSchemaErrorFormatter(ValidationErrorHandler)
+ * const fastify = Fastify({
+ *     // ...other options
+ *     schemaErrorFormatter: ValidationErrorHandler
+ * })
  * ```
  *
  * @example
