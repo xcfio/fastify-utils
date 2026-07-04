@@ -29,9 +29,9 @@
         "typebox": ">=1.0.0 <2.0.0"
     },
     "devDependencies": {
-        "@types/node": "^26.0.0"
+        "@types/node": "^26.1.0"
     },
-    "packageManager": "pnpm@11.2.2",
+    "packageManager": "pnpm@11.9.0",
     "publishConfig": {
         "access": "public",
         "tag": "latest"
