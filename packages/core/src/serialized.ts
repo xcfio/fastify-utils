@@ -1,3 +1,4 @@
+// oxlint-disable eslint-js/no-restricted-syntax typescript/no-unsafe-return typescript/no-unnecessary-type-assertion
 /**
  * Recursively transforms a type by converting all `Date` values to `string`,
  * preserving `null`, arrays, and nested objects.

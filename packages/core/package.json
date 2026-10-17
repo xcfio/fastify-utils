@@ -1,24 +1,27 @@
 {
     "name": "fastify-utils",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "A collection of TypeScript utilities for building Fastify applications — error handling, schema validation formatting, and object serialization.",
     "author": "xcfio",
     "homepage": "https://github.com/xcfio/fastify-utils#readme",
     "type": "commonjs",
     "license": "MIT",
-    "main": "./out/index.js",
-    "types": "./out/index.d.ts",
+    "main": "./out/index.cjs",
+    "types": "./out/index.d.cts",
     "exports": {
         ".": {
-            "types": "./out/index.d.ts",
-            "import": "./out/index.js",
-            "require": "./out/index.js"
+            "types": "./out/index.d.cts",
+            "import": "./out/index.mjs",
+            "require": "./out/index.cjs"
         }
     },
     "scripts": {
-        "build": "tsc",
-        "dev": "tsc --watch",
-        "test": "tsc --noEmit"
+        "build": "tsdown --config=tsdown.config.mts",
+        "dev": "tsdown --watch --config=tsdown.config.mts",
+        "test": "tsc --noEmit && vitest run",
+        "test:ui": "tsc --noEmit && vitest --ui",
+        "test:coverage": "vitest run --coverage",
+        "test:watch": "vitest"
     },
     "keywords": [
         "fastify",
@@ -45,12 +48,16 @@
         "node": ">=24"
     },
     "dependencies": {
-        "@fastify/error": ">=4.0.0 <5.0.0",
-        "fastify": ">=5.0.0 <6.0.0",
-        "typebox": ">=1.0.0 <2.0.0"
+        "@fastify/error": ">=4.2.1",
+        "fastify": ">=5.12.7",
+        "typebox": ">=1.4.1"
     },
     "devDependencies": {
         "@types/node": "^26.6.5",
-        "typescript": "7.0.2"
+        "@vitest/coverage-v8": "^5.0.5",
+        "@vitest/ui": "^5.0.5",
+        "tsdown": "^0.23.1",
+        "typescript": "7.0.2",
+        "vitest": "^5.0.5"
     }
 }

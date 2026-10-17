@@ -4,7 +4,9 @@ A collection of TypeScript utilities for building Fastify applications — error
 
 ## Requirements
 
-[Node.js](https://nodejs.org/) `>=22`. [pnpm](https://pnpm.io/) is recommended. [TypeScript](https://www.typescriptlang.org/) is optional but recommended for type safety.
+- [Node.js](https://nodejs.org/) `>=24`.
+- [pnpm](https://pnpm.io/) `>=10` (recommended).
+- [TypeScript](https://www.typescriptlang.org/) `>=5` (recommended).
 
 ## Installation
 
@@ -17,10 +19,7 @@ pnpm add fastify-utils
 ## Quick Start
 
 ```typescript
-import { CreateError, ValidationErrorHandler, serialize } from "fastify-utils"
-
-// Error handling
-throw CreateError(404, "USER_NOT_FOUND", "User not found", { userId: "123" })
+import { ValidationErrorHandler, serialize } from "fastify-utils"
 
 // Schema validation formatter
 const fastify = Fastify({
@@ -36,42 +35,6 @@ serialize(row) // { name: "Cool", createdAt: "2026-01-01T00:00:00.000Z" }
 ---
 
 ## API
-
-### Error Utilities
-
-#### `CreateError(statusCode, code, message, details?)`
-
-Creates a Fastify-compatible error using `@fastify/error`.
-
-| Parameter    | Type                  | Description                               |
-| ------------ | --------------------- | ----------------------------------------- |
-| `statusCode` | `number`              | HTTP status code (100–599)                |
-| `code`       | `string`              | Unique error code (e.g. `USER_NOT_FOUND`) |
-| `message`    | `string`              | Human-readable error message              |
-| `details`    | `Record<string, any>` | Optional additional error metadata        |
-
-```typescript
-throw CreateError(404, "USER_NOT_FOUND", "User not found", { userId: "123" })
-
-throw CreateError(400, "VALIDATION_ERROR", "Invalid input")
-```
-
----
-
-#### `isFastifyError(error)`
-
-Type guard to check if an error is a `FastifyError`.
-
-```typescript
-try {
-    // some operation
-} catch (error) {
-    if (isFastifyError(error)) throw error
-    console.trace(error)
-}
-```
-
----
 
 ### Schema Utilities
 

@@ -1,5 +1,5 @@
+// oxlint-disable typescript/no-unsafe-return
 import { SchemaErrorFormatter } from "fastify/types/schema"
-import { CreateError } from "./create-error"
 import { Type } from "typebox"
 
 /**
@@ -122,12 +122,12 @@ export function ValidationErrorHandler(
         if (constErrors.length > 0) {
             const allowedValues = constErrors.map((e) => e.params?.allowedValue).filter(Boolean)
             if (allowedValues.length > 0) {
-                const fieldName = instancePath.replace(/^\//, "") || "root"
+                const fieldName = instancePath.replace(/^\//u, "") || "root"
                 errorMessages.push(`${fieldName} must be one of: ${allowedValues.join(", ")}`)
             } else {
                 errorMessages.push(
                     ...constErrors.map(
-                        (e) => `${instancePath.replace(/^\//, "") || "root"}: ${e.message ?? "Invalid value"}`
+                        (e) => `${instancePath.replace(/^\//u, "") || "root"}: ${e.message ?? "Invalid value"}`
                     )
                 )
             }
@@ -136,7 +136,7 @@ export function ValidationErrorHandler(
         if (otherErrors.length > 0) {
             errorMessages.push(
                 ...otherErrors.map((e) => {
-                    const fieldName = instancePath.replace(/^\//, "") || "root"
+                    const fieldName = instancePath.replace(/^\//u, "") || "root"
                     return `${fieldName}: ${e.message ?? "Invalid value"}`
                 })
             )
@@ -148,6 +148,6 @@ export function ValidationErrorHandler(
     })
 
     const finalMessage = errorMessages.length > 0 ? errorMessages.join("; ") : "Validation failed"
-
-    return CreateError(400, "SCHEMA_VALIDATION_ERROR", `Schema validation failed for ${path}: ${finalMessage}`)
+    return finalMessage /* Temporary fix */
+    // return CreateError(400, "SCHEMA_VALIDATION_ERROR", `Schema validation failed for ${path}: ${finalMessage}`)
 }
