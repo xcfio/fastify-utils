@@ -1,0 +1,60 @@
+{
+    "name": "@fastify-utils/error",
+    "version": "1.0.0",
+    "description": "RFC 9457 Problem Details for HTTP APIs - A standardized error handling package for Node.js",
+    "author": "xcfio",
+    "homepage": "https://github.com/fastify-utils#readme",
+    "type": "commonjs",
+    "license": "MIT",
+    "main": "./out/index.cjs",
+    "types": "./out/index.d.cts",
+    "exports": {
+        ".": {
+            "types": "./out/index.d.cts",
+            "import": "./out/index.mjs",
+            "require": "./out/index.cjs"
+        }
+    },
+    "engines": {
+        "node": ">=24"
+    },
+    "scripts": {
+        "build": "tsdown --config=tsdown.config.mts",
+        "dev": "tsdown --watch --config=tsdown.config.mts",
+        "test": "tsc --noEmit && vitest run",
+        "test:ui": "tsc --noEmit && vitest --ui",
+        "test:coverage": "vitest run --coverage",
+        "test:watch": "vitest"
+    },
+    "keywords": [
+        "rfc9457",
+        "rfc7807",
+        "error",
+        "fastify",
+        "http",
+        "problem-details",
+        "error-handling",
+        "nodejs",
+        "typescript"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fastify-utils/error"
+    },
+    "bugs": {
+        "url": "https://github.com/fastify-utils/error/issues",
+        "email": "xcfio@proton.me"
+    },
+    "publishConfig": {
+        "access": "public",
+        "tag": "latest"
+    },
+    "devDependencies": {
+        "@types/node": "^26.6.5",
+        "@vitest/coverage-v8": "^5.0.5",
+        "@vitest/ui": "^5.0.5",
+        "tsdown": "^0.23.1",
+        "typescript": "7.0.2",
+        "vitest": "^5.0.5"
+    }
+}
