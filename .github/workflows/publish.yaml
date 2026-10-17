@@ -33,15 +33,11 @@ jobs:
             - name: Build
               run: node --run build
 
-            - name: Publish packages
+            - name: Stage packages
               run: |
                   for dir in packages/*/; do
                     if [ -f "$dir/package.json" ]; then
-                      echo "Copying .npmignore to $dir..."
-                      cp .npmignore "$dir"
-                      echo "Publishing $dir..."
-                      pnpm --filter "./$dir" publish --provenance --no-git-checks || true
+                      cat .npmignore .gitignore | grep -vxE '/?out/?' > "$dir/.npmignore"
+                      pnpm --filter "./$dir" stage publish --no-git-checks || true
                     fi
                   done
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NODETOKEN}}

@@ -1,5 +1,5 @@
-*.test*.ts
-*.test*.js
+*.{test,spec}.?(c|m)[jt]s?(x)
+*.config.?(c|m)[jt]s?(x)
 .github/
 src/
 .gitignore

@@ -1,6 +1,6 @@
 {
     "name": "@fastify-utils/error",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "RFC 9457 Problem Details for HTTP APIs - A standardized error handling package for Node.js",
     "author": "xcfio",
     "homepage": "https://github.com/fastify-utils#readme",
@@ -14,9 +14,6 @@
             "import": "./out/index.mjs",
             "require": "./out/index.cjs"
         }
-    },
-    "engines": {
-        "node": ">=24"
     },
     "scripts": {
         "build": "tsdown --config=tsdown.config.mts",
@@ -49,6 +46,12 @@
     "publishConfig": {
         "access": "public",
         "tag": "latest"
+    },
+    "files": [
+        "out"
+    ],
+    "engines": {
+        "node": ">=24"
     },
     "devDependencies": {
         "@types/node": "^26.6.5",
