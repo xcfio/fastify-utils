@@ -1,20 +1,28 @@
 {
     "name": "fastify-utils",
-    "version": "0.0.2",
-    "description": "A collection of TypeScript utilities for building Fastify applications — error handling, schema validation formatting, and object serialization.",
-    "author": "xcfio",
     "homepage": "https://github.com/xcfio/fastify-utils#readme",
-    "type": "commonjs",
     "license": "MIT",
-    "main": "./out/index.js",
+    "version": "0.0.1",
     "scripts": {
-        "lint": "prettier --config=.prettierrc --check src",
-        "fmt": "prettier --config=.prettierrc --write src",
-        "test": "tsc --noEmit",
-        "dev": "tsc --watch",
-        "build": "tsc"
+        "build": "turbo run build",
+        "clean": "node --eval \"import('node:fs/promises').then(async({readdir,rm})=>{const{join}=await import('node:path');async function walk(d){for(const e of await readdir(d,{withFileTypes:true})){if(!e.isDirectory()||e.name==='.git'||e.name==='.turbo')continue;const p=join(d,e.name);if(e.name==='node_modules'){console.log('Removing',p);await rm(p,{recursive:true,force:true})}else{await walk(p)}}}console.log('Scanning...');await walk('.');console.log('Clean done')})\"",
+        "clean:no-out": "node --eval \"import('node:fs/promises').then(async({readdir,rm})=>{const{join}=await import('node:path');const removed=[];async function walk(d){for(const e of await readdir(d,{withFileTypes:true})){if(!e.isDirectory()||e.name==='.git'||e.name==='.turbo')continue;const p=join(d,e.name);if(e.name==='node_modules'){await rm(p,{recursive:true,force:true});removed.push(p)}else{await walk(p)}}}await walk('.');console.log('Removed',removed.length,'node_modules dir(s)')})\"",
+        "dev": "turbo watch dev",
+        "dev:stream": "turbo watch dev --ui=stream",
+        "fmt": "prettier --config=.prettierrc --write .",
+        "fmt:test": "prettier --config=.prettierrc --check .",
+        "lint": "oxlint --config=oxlint.config.mts .",
+        "lint:fix": "oxlint --config=oxlint.config.mts --fix .",
+        "preinstall": "npx only-allow pnpm",
+        "start": "turbo run start",
+        "test": "turbo run test",
+        "test:no-cache": "turbo run test --cache=local:r,remote:r"
     },
-    "keywords": [],
+    "author": {
+        "name": "xcfio",
+        "email": "omarfaruksxp@gmail.com",
+        "url": "https://xcfio.com"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/xcfio/fastify-utils"
@@ -23,20 +31,21 @@
         "url": "https://github.com/xcfio/fastify-utils/issues",
         "email": "omarfaruksxp@gmail.com"
     },
-    "dependencies": {
-        "@fastify/error": ">=4.0.0 <5.0.0",
-        "fastify": ">=5.0.0 <6.0.0",
-        "typebox": ">=1.0.0 <2.0.0"
-    },
-    "devDependencies": {
-        "@types/node": "^26.1.0"
-    },
-    "packageManager": "pnpm@11.9.0",
-    "publishConfig": {
-        "access": "public",
-        "tag": "latest"
-    },
     "engines": {
-        "node": ">=22"
+        "node": ">=24"
+    },
+    "packageManager": "pnpm@12.14.0",
+    "devDependencies": {
+        "@commitlint/config-conventional": "^21.2.3",
+        "@commitlint/format": "^21.2.3",
+        "@commitlint/types": "^21.2.3",
+        "commitlint": "^21.2.3",
+        "lefthook": "^2.2.2",
+        "oxlint": "^1.88.0",
+        "oxlint-plugin-eslint": "^1.88.0",
+        "oxlint-tsgolint": "^7.0.2004",
+        "prettier": "^3.9.10",
+        "turbo": "^2.11.9",
+        "typescript": "7.0.2"
     }
 }

@@ -1,0 +1,4 @@
+{
+    "conventionalCommits.scopes": ["fastify-utils"],
+    "oxc.configPath": "oxlint.config.mts"
+}

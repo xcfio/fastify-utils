@@ -13,16 +13,16 @@ jobs:
 
         steps:
             - name: Setup Action
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
 
             - name: Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
                   node-version: "latest"
                   registry-url: https://registry.npmjs.org/
 
             - name: Setup PNPM
-              uses: pnpm/action-setup@v4
+              uses: pnpm/action-setup@v6
 
             - name: Install dependencies
               run: pnpm install --no-frozen-lockfile
@@ -33,5 +33,13 @@ jobs:
             - name: Build
               run: node --run build
 
-            - name: Publish release
-              run: pnpm publish --provenance --access public --no-git-checks
+            - name: Publish packages
+              run: |
+                  for dir in packages/*/; do
+                    if [ -f "$dir/package.json" ]; then
+                      echo "Publishing $dir..."
+                      pnpm --filter "./$dir" publish --provenance --no-git-checks || true
+                    fi
+                  done
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NODETOKEN}}
