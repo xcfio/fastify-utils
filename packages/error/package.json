@@ -39,10 +39,11 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/fastify-utils"
+        "url": "https://github.com/xcfio/fastify-utils",
+        "directory": "packages/error"
     },
     "bugs": {
-        "url": "https://github.com/fastify-utils/issues",
+        "url": "https://github.com/xcfio/fastify-utils",
         "email": "xcfio@proton.me"
     },
     "publishConfig": {

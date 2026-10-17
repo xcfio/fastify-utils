@@ -34,7 +34,8 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/xcfio/fastify-utils"
+        "url": "https://github.com/xcfio/fastify-utils",
+        "directory": "packages/core"
     },
     "bugs": {
         "url": "https://github.com/xcfio/fastify-utils/issues",
