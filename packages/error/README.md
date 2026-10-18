@@ -31,7 +31,7 @@ pnpm add @fastify-utils/error
 // CommonJS
 const { errors } = require("@fastify-utils/error")
 
-// or TypeScript / ES Modules
+// or TypeScript
 import { errors } from "@fastify-utils/error"
 
 // Client errors

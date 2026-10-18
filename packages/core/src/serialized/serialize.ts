@@ -1,28 +1,5 @@
 // oxlint-disable eslint-js/no-restricted-syntax typescript/no-unsafe-return typescript/no-unnecessary-type-assertion
-/**
- * Recursively transforms a type by converting all `Date` values to `string`,
- * preserving `null`, arrays, and nested objects.
- *
- * @template T - The source type to serialize.
- *
- * @example
- * type User = { name: string; createdAt: Date; tags: Date[] }
- * type SerializedUser = Serialized<User>
- * // { name: string; createdAt: string; tags: string[] }
- */
-export type Serialize<T> = {
-    [K in keyof T]: T[K] extends Date
-        ? string
-        : T[K] extends Date | null
-          ? string | null
-          : T[K] extends (infer U)[]
-            ? U extends Date
-                ? string[]
-                : Serialize<U>[]
-            : T[K] extends object
-              ? Serialize<T[K]>
-              : T[K]
-}
+import { Serialize } from "../types"
 
 /**
  * Recursively serializes a database record into a JSON/TypeBox-compatible

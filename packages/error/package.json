@@ -11,8 +11,7 @@
     "exports": {
         ".": {
             "types": "./out/index.d.cts",
-            "import": "./out/index.mjs",
-            "require": "./out/index.cjs"
+            "default": "./out/index.cjs"
         }
     },
     "scripts": {
