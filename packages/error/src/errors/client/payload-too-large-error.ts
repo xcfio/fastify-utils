@@ -1,5 +1,5 @@
-import { HttpError } from "../../core/index"
-import { extractCause, getErrorType, normalizeToString } from "../../helpers/index"
+import { HttpError } from "../../core"
+import { extractCause, getErrorType, normalizeToString } from "../../helpers"
 
 /**
  * RFC 9457 HTTP 413 Payload Too Large error.

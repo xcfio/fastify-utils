@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { HttpError } from "./index"
+import { HttpError } from "./"
 
 describe("core/index.ts exports", () => {
     it("should export HttpError class", () => {

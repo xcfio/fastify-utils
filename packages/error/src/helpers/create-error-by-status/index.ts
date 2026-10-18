@@ -1,6 +1,6 @@
-import type { HttpError } from "../../core/index"
-import { factories as clientFactories } from "../../errors/client/index"
-import { factories as serverFactories } from "../../errors/server/index"
+import type { HttpError } from "../../core"
+import { factories as clientFactories } from "../../errors/client"
+import { factories as serverFactories } from "../../errors/server"
 
 /**
  * Creates an appropriate RFC 9457 {@link HttpError} instance based on an HTTP status code.

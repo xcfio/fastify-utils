@@ -1,5 +1,5 @@
-import type { ValidationErrors } from "../../types/index"
-import * as ErrorClasses from "./index"
+import type { ValidationErrors } from "../../types"
+import * as ErrorClasses from "./"
 
 /**
  * Standard factory methods for creating HTTP 4xx client errors.

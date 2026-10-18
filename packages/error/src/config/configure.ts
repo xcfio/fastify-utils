@@ -1,4 +1,4 @@
-import type { ErrorConfig } from "../types/index"
+import type { ErrorConfig } from "../types"
 import { currentConfig } from "./error-config"
 
 /**

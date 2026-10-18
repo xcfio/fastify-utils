@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { error, errors, isHttpError, type ValidationErrors } from "./index"
+import { error, errors, isHttpError, type ValidationErrors } from "./"
 
 describe("index.ts exports", () => {
     it("should export error object with factory functions", () => {

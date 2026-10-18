@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { configure, getConfig } from "./index"
+import { configure, getConfig } from "./"
 
 describe("config/index.ts exports", () => {
     it("should export configure function", () => {

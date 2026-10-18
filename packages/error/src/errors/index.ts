@@ -1,7 +1,7 @@
 /**
  * Client error classes and factory functions (4xx status codes).
  */
-export * as client from "./client/index"
+export * as client from "./client"
 export {
     AuthenticationError,
     AuthorizationError,
@@ -31,12 +31,12 @@ export {
     UpgradeRequiredError,
     UriTooLongError,
     ValidationError
-} from "./client/index"
+} from "./client"
 
 /**
  * Server error classes and factory functions (5xx status codes).
  */
-export * as server from "./server/index"
+export * as server from "./server"
 
 export {
     BadGatewayError,
@@ -50,4 +50,4 @@ export {
     NotImplementedError,
     ServiceUnavailableError,
     VariantAlsoNegotiatesError
-} from "./server/index"
+} from "./server"

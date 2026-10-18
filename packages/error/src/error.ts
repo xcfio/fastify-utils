@@ -1,5 +1,5 @@
-import { factories as clientFactories } from "./errors/client/index"
-import { factories as serverFactories } from "./errors/server/index"
+import { factories as clientFactories } from "./errors/client"
+import { factories as serverFactories } from "./errors/server"
 
 /**
  * Flat collection of factory functions combining all client (4xx) and server (5xx) error factories.

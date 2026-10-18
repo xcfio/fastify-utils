@@ -1,4 +1,4 @@
-import * as ErrorClasses from "./index"
+import * as ErrorClasses from "./"
 
 /**
  * Standard factory methods for creating HTTP 5xx server errors.

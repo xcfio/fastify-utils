@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { HttpError } from "../../core/index"
-import { isHttpError } from "./index"
+import { HttpError } from "../../core"
+import { isHttpError } from "./"
 
 describe("isHttpError", () => {
     it("should return true for HttpError instances", () => {

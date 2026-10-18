@@ -1,6 +1,6 @@
 /* eslint-disable typescript/no-base-to-string */
 import { describe, expect, it } from "vitest"
-import { normalizeToString } from "./index"
+import { normalizeToString } from "./"
 
 describe("normalizeToString", () => {
     it("should return Error message for Error instances", () => {

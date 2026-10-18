@@ -1,4 +1,4 @@
-import { HttpError } from "../../core/index"
+import { HttpError } from "../../core"
 
 /**
  * Type guard that checks whether an unknown value is an instance of {@link HttpError}.

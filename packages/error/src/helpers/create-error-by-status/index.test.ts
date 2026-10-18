@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { errors } from "../../errors"
-import { createErrorByStatus } from "./index"
+import { createErrorByStatus } from "./"
 
 describe("createErrorByStatus", () => {
     it("should create BadRequestError for status 400", () => {

@@ -1,5 +1,5 @@
-import { SchemaErrorFormatter } from "fastify/types/schema"
-import { ErrorsByPath } from "../../types"
+import type { SchemaErrorFormatter } from "fastify/types/schema"
+import type { ErrorsByPath } from "../../types"
 import { errors } from "@fastify-utils/error"
 
 /**

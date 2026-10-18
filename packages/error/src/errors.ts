@@ -1,6 +1,6 @@
-import { factories as clientFactories } from "./errors/client/index"
-import { factories as serverFactories } from "./errors/server/index"
-import { createErrorByStatus } from "./helpers/index"
+import { factories as clientFactories } from "./errors/client"
+import { factories as serverFactories } from "./errors/server"
+import { createErrorByStatus } from "./helpers"
 
 /**
  * Categorized namespace for creating RFC 9457 Problem Details HTTP errors.

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest"
 import { currentConfig } from "../../config/error-config"
-import { configure } from "../../config/index"
-import { getErrorType } from "./index"
+import { configure } from "../../config"
+import { getErrorType } from "./"
 
 describe("getErrorType", () => {
     beforeEach(() => {

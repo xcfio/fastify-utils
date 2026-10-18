@@ -1,4 +1,4 @@
-import type { HttpErrorParams } from "../types/index"
+import type { HttpErrorParams } from "../types"
 
 /**
  * Base class for all RFC 9457 Problem Details HTTP errors.

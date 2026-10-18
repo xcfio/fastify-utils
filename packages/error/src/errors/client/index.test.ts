@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import * as ClientErrors from "./index"
+import * as ClientErrors from "./"
 
 describe("errors/client/index.ts exports", () => {
     it("should export BadRequestError", () => {

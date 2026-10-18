@@ -1,12 +1,5 @@
 import { describe, expect, it } from "vitest"
-import {
-    createErrorByStatus,
-    extractCause,
-    getErrorType,
-    isHttpError,
-    isValidRFC9457Json,
-    normalizeToString
-} from "./index"
+import { createErrorByStatus, extractCause, getErrorType, isHttpError, isValidRFC9457Json, normalizeToString } from "./"
 
 describe("helpers/index.ts exports", () => {
     it("should export createErrorByStatus", () => {

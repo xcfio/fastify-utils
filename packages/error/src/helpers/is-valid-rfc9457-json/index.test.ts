@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { isValidRFC9457Json } from "./index"
+import { isValidRFC9457Json } from "./"
 
 describe("isValidRFC9457Json", () => {
     it("should return true for complete RFC9457 response", () => {

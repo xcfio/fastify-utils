@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { errors } from "../index"
+import { errors } from "../"
 
 describe("Error cause propagation", () => {
     it("should automatically extract and propagate cause from Error objects", () => {

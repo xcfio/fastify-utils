@@ -1,10 +1,10 @@
 // oxlint-disable eslint-js/no-restricted-syntax
 import { describe, expect, it } from "vitest"
 import {
-    ErrorsByPath,
-    SchemaValidationError,
-    Serialize,
-    ValidationErrors,
+    type ErrorsByPath,
+    type SchemaValidationError,
+    type Serialize,
+    type ValidationErrors,
     ValidationErrorResponse,
     error,
     errors,

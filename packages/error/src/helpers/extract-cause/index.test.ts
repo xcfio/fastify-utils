@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { extractCause } from "./index"
+import { extractCause } from "./"
 
 describe("extractCause", () => {
     it("should extract Error objects as cause", () => {

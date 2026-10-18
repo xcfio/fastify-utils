@@ -1,4 +1,4 @@
-import { FastifySchemaValidationError } from "fastify/types/schema"
+import type { FastifySchemaValidationError } from "fastify/types/schema"
 import { describe, expect, it } from "vitest"
 import { schemaErrorFormatter } from "./"
 

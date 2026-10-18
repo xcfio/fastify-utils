@@ -1,6 +1,6 @@
 {
     "name": "@fastify-utils/error",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "RFC 9457 Problem Details for HTTP APIs - A standardized error handling package for Node.js",
     "author": "xcfio",
     "homepage": "https://github.com/fastify-utils#readme",

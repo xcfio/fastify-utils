@@ -1,5 +1,5 @@
 // oxlint-disable eslint-js/no-restricted-syntax typescript/no-unsafe-return typescript/no-unnecessary-type-assertion
-import { Serialize } from "../types"
+import type { Serialize } from "../types"
 
 /**
  * Recursively serializes a database record into a JSON/TypeBox-compatible

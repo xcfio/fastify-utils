@@ -1,4 +1,4 @@
-import type { ErrorConfig } from "../types/index"
+import type { ErrorConfig } from "../types"
 
 /**
  * Default configuration settings for RFC 9457 Problem Details.

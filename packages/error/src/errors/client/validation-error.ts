@@ -1,6 +1,6 @@
-import { HttpError } from "../../core/index"
-import { extractCause, getErrorType, normalizeToString } from "../../helpers/index"
-import type { ValidationErrors } from "../../types/index"
+import { HttpError } from "../../core"
+import { extractCause, getErrorType, normalizeToString } from "../../helpers"
+import type { ValidationErrors } from "../../types"
 
 /**
  * RFC 9457 HTTP 422 Unprocessable Content / Validation Error.

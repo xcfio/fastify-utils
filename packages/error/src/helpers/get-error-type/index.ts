@@ -1,4 +1,4 @@
-import { getConfig } from "../../config/index"
+import { getConfig } from "../../config"
 
 /**
  * Generates an RFC 9457 compliant `type` URI for a given error slug.
