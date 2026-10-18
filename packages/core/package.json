@@ -1,6 +1,6 @@
 {
     "name": "fastify-utils",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "A collection of TypeScript utilities for building Fastify applications — error handling, schema validation formatting, and object serialization.",
     "author": "xcfio",
     "homepage": "https://github.com/xcfio/fastify-utils#readme",
@@ -51,7 +51,7 @@
         "node": ">=24"
     },
     "dependencies": {
-        "@fastify-utils/error": ">=1.0.1",
+        "@fastify-utils/error": ">=1.0.2",
         "fastify": ">=5.12.7",
         "typebox": ">=1.4.2"
     },

@@ -13,4 +13,4 @@ minimumReleaseAgeExclude:
   - "@turbo/windows-arm64@2.11.9"
   - turbo@2.11.9
   - typebox@1.4.2
-  - "@fastify-utils/error@1.0.1"
+  - "@fastify-utils/error@1.0.2"

@@ -206,8 +206,8 @@ importers:
   packages/core:
     dependencies:
       '@fastify-utils/error':
-        specifier: '>=1.0.1'
-        version: 1.0.1
+        specifier: '>=1.0.2'
+        version: 1.0.2
       fastify:
         specifier: '>=5.12.7'
         version: 5.12.7
@@ -367,8 +367,8 @@ packages:
     resolution: {integrity: sha512-aalGyl7dbB5PArRebDIX43ZvBlXrYm9uWzGJ26t+4SzJVPsOuvfILGGbw5X4yX7i50YEmJ8zvbiWnqH/AAnZqg==}
     engines: {node: '>=22'}
 
-  '@fastify-utils/error@1.0.1':
-    resolution: {integrity: sha512-n8FPpGxqdgDulyI9xvj4sF6c/27gkclmuzXr8Emj53OZBgEPRkBNwm5yBzDPDcoJp+YItgVK1fAvUXhIgzvZgQ==}
+  '@fastify-utils/error@1.0.2':
+    resolution: {integrity: sha512-JOJpWGGvGYjThKa+BYdOBzzuWsdKkE6cSP5jH0/FF2S7Nouta6/KWadGhT9E9wN2Da09vNoIlvS0Q+UbC4ueEg==}
     engines: {node: '>=24'}
 
   '@fastify/ajv-compiler@4.0.7':
@@ -1891,7 +1891,7 @@ snapshots:
 
   '@conventional-changelog/template@1.4.0': {}
 
-  '@fastify-utils/error@1.0.1': {}
+  '@fastify-utils/error@1.0.2': {}
 
   '@fastify/ajv-compiler@4.0.7':
     dependencies:
