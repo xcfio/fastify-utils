@@ -2,6 +2,27 @@ import type { HttpError } from "../../core/index"
 import { factories as clientFactories } from "../../errors/client/index"
 import { factories as serverFactories } from "../../errors/server/index"
 
+/**
+ * Creates an appropriate RFC 9457 {@link HttpError} instance based on an HTTP status code.
+ *
+ * Maps standard 4xx codes to client error instances and 5xx codes to server error instances.
+ * Falls back to `badRequest` (400) for unknown 4xx codes and `internal` (500) for all other unmapped codes.
+ *
+ * @param status - The HTTP status code (e.g. 404, 500).
+ * @param detail - The error message, Error instance, or raw value to normalize.
+ * @returns An {@link HttpError} subclass instance matching the status code.
+ *
+ * @example
+ * ```typescript
+ * import { createErrorByStatus } from "@fastify-utils/error/helpers"
+ *
+ * const error = createErrorByStatus(404, "User not found")
+ * // NotFoundError { status: 404, detail: "User not found", ... }
+ *
+ * const serverError = createErrorByStatus(503, "Database unavailable")
+ * // ServiceUnavailableError { status: 503, detail: "Database unavailable", ... }
+ * ```
+ */
 export const createErrorByStatus = (status: number, detail: unknown): HttpError => {
     switch (status) {
         case 400:
