@@ -188,8 +188,8 @@ importers:
         specifier: ^1.88.0
         version: 1.88.0(oxlint-tsgolint@7.0.2004)
       oxlint-plugin-eslint:
-        specifier: ^1.88.0
-        version: 1.88.0
+        specifier: ^1.89.0
+        version: 1.89.0
       oxlint-tsgolint:
         specifier: ^7.0.2004
         version: 7.0.2004
@@ -1368,8 +1368,8 @@ packages:
     resolution: {integrity: sha512-0eJJY6hXLGf1udHwfNftBqH+g73EU4B504nZeKpz1sYRKafAghwxEJunB2O7rDZkL4PGfsMVnTXZ2EjibbqcsA==}
     engines: {node: '>=14.0.0'}
 
-  oxlint-plugin-eslint@1.88.0:
-    resolution: {integrity: sha512-S67hB1/w+sRb8Qa7EBU9nSoopjZ8a/vY1pqHYBYm9rFm9H60ovpGodxPdqxI/p/OGpmPUY2ARLKPx43l5BxwGg==}
+  oxlint-plugin-eslint@1.89.0:
+    resolution: {integrity: sha512-UuYpNpDZmm9E/BAgLy/CNvMN/2v+jo4zw0/fNB49krY+4/7UZ66OWYt9BM271CD83g6qSdPF+nHxTd2M0eMvjQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
   oxlint-tsgolint@7.0.2004:
@@ -2594,7 +2594,7 @@ snapshots:
 
   on-exit-leak-free@2.1.2: {}
 
-  oxlint-plugin-eslint@1.88.0: {}
+  oxlint-plugin-eslint@1.89.0: {}
 
   oxlint-tsgolint@7.0.2004:
     optionalDependencies:
